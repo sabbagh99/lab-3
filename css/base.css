@@ -1,0 +1,20 @@
+@import 'reset.css';
+@import 'modules.css';
+select {
+     /* visibility:hidden;  */
+    } 
+
+    body {
+        background-color: coral;
+    }
+    .sec{ 
+     visibility:hidden;
+    } 
+    
+    section img {
+        width: 100px;
+        height: 100px;
+    }
+    /* body section:first-child{
+        display: none;
+    } */

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>The Gallery of Horns</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<script></script>
+<body>
+    <header>
+        <h1>The Gallery of Horns</h1>
+        <select id="showKeywords">
+
+        </select>
+
+    <button id="firstP" type="button">page1</button>
+        
+    <button id="secP" type="button" > page2</button>
+
+    </header>
+    <template id="temp"> 
+    
+        <section class="{{keyword}}">
+            <h2>{{title}}<h2>
+            <img  src="{{image}}">
+            <p>{{description}}</p> 
+    
+        </section>
+    </template>
+<main id="mainTemp">
+    <!-- <section class="sec">
+        <h2></h2>
+        <img  src="" alt="">
+        <p></p> 
+
+    </section> -->
+    
+    
+        <!-- <template id="templateID" type="text/x-tmpl-mustache"> 
+            <div>
+                <h2> {{title}}</h2>
+                <img  src={{image}}>
+                <p>{{description}}</p>
+            </div>
+        </template> --> 
+    
+    </main>
+
+    <footer>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+    <script src="https://unpkg.com/mustache@latest"></script>
+
+    <script src="https://unpkg.com/mustache@latest"></script>
+
+ 
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
