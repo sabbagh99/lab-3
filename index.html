@@ -11,15 +11,17 @@
 <body>
     <header>
         <h1>The Gallery of Horns</h1>
-        <select id="showKeywords">
-
+  <div>     
+ <select id="showKeywords">
         </select>
 
     <button id="firstP" type="button">page1</button>
         
     <button id="secP" type="button" > page2</button>
-
-    </header>
+    <button id="title" type="button" > title</button> 
+    <button id="horns" type="button" > horns</button>
+    </div>
+</header>
     <template id="temp"> 
     
         <section class="{{keyword}}">
@@ -30,22 +32,7 @@
         </section>
     </template>
 <main id="mainTemp">
-    <!-- <section class="sec">
-        <h2></h2>
-        <img  src="" alt="">
-        <p></p> 
 
-    </section> -->
-    
-    
-        <!-- <template id="templateID" type="text/x-tmpl-mustache"> 
-            <div>
-                <h2> {{title}}</h2>
-                <img  src={{image}}>
-                <p>{{description}}</p>
-            </div>
-        </template> --> 
-    
     </main>
 
     <footer>

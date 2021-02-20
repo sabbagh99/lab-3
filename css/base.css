@@ -12,9 +12,36 @@ select {
     } 
     
     section img {
-        width: 100px;
-        height: 100px;
+        width: 250px;
+        height: 250px;
+        padding: 30px;
+        margin: auto;
+        border: 20px;
     }
     /* body section:first-child{
         display: none;
     } */
+
+    main 
+    {
+        display: grid;
+        grid-template-columns: 33.3% 33.3% 33.3%
+    }
+h2{
+    margin: auto;
+    width: 328px;
+    font-size: 25px;
+    padding: 15px;
+
+    text-align-last: center;
+}
+h1 {
+    text-align: center;
+    padding: 50px;
+font-size: 40px;
+font-weight: bold;
+}
+div{text-align: center;
+    padding: 10px;
+
+}

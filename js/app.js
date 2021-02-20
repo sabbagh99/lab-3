@@ -2,7 +2,9 @@
 
 var keywords = [];
 var id = $('#temp');
-var renderArr = []; 
+var renderArr = [];
+var titleArr = [];
+var hornsArr = [];
 
 function Album(image, title, description, keyword, horns) {
     this.image = image;
@@ -11,35 +13,18 @@ function Album(image, title, description, keyword, horns) {
     this.keyword = keyword;
     this.horns = horns;
     keywords.push(this.keyword);
-    renderArr.push(this)
+    renderArr.push(this);
+    titleArr.push(this.title);
+    hornsArr.push(this.horns);
+    sortHorns(hornsArr);
+    sortTitle(titleArr);
 }
 
-
-Album.prototype.renderAlbum = function () {
-    // let sectionAlbum = $('.sec').clone();
-    // sectionAlbum.find('img').attr('src', this.image);
-    // sectionAlbum.find('h2').text(this.title);
-    // sectionAlbum.find('p').text(this.description);
-    // sectionAlbum.removeClass('sec');
-    // sectionAlbum.toggleClass(this.keyword);
-
-    // $('main').append(sectionAlbum);
+Album.prototype.renderAlbum = function() {
     let template = $(id).html();
-    
-    $("#mainTemp").append(Mustache.render(template,this));
 
+    $("#mainTemp").append(Mustache.render(template, this));
 };
-
-// Album.prototype.renderAlbum = function () {
-//     let template = $(letID).html();
-//     // console.log(template)
-//     // $('.sec').append(Mustache.render(template, this));
-    
-//     let render = Mustache.render(template,this);
-    
-//     return render;
-//     console.log('test')
-// };
 
 function display() {
     const ajaxSettings = {
@@ -53,7 +38,6 @@ function display() {
             let jsAlbum = new Album(element.image_url, element.title, element.description, element.keyword, element.horns);
             jsAlbum.renderAlbum();
         });
-        uniqueNames = [];
         filtering();
         showKeywords();
     });
@@ -62,18 +46,17 @@ function display() {
 $('document').ready(display);
 
 var uniqueNames = [];
+
 function filtering() {
 
-    $.each(keywords, function (i, el) {
+    $.each(keywords, function(i, el) {
         if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
 
     });
 }
 
 function showKeywords() {
-    // let showing = $('#showKeywords').clone();
-    // showing.removeAttr('showKeywords');
-    $('#showKeywords').on('change',function(){
+    $('#showKeywords').on('change', function() {
         $('#mainTemp').children().not(':first-child').remove();
     });
     for (let index = 0; index < uniqueNames.length; index++) {
@@ -86,20 +69,14 @@ function showKeywords() {
 let showHide = (event) => {
     $('#mainTemp').empty();
     let selectKeyWord = event.target.value;
-    // $('section').hide();
-    renderArr.forEach(v=>{
-        if (v.keyword == selectKeyWord){
-            v.renderAlbum()
-            console.log(v.keyword);
+    renderArr.forEach(v => {
+        if (v.keyword == selectKeyWord) {
+            v.renderAlbum();
         }
     })
-    // $(`.${selectKeyWord}`).fadeIn();
-    // selectKeyWord.renderAlbum
-    // console.log(selectKeyWord);
-
 };
 $('#showKeywords').on('change', showHide);
-$('select').on('change',showHide);
+$('select').on('change', showHide);
 
 function showAlbumTwo() {
 
@@ -107,24 +84,86 @@ function showAlbumTwo() {
         method: 'get',
         dataType: 'json'
     };
-
-    
     $('main').empty();
-    
-
     $.ajax('../data/page-2.json', ajaxSettings).then(data => {
         data.forEach(element => {
             let jsAlbum = new Album(element.image_url, element.title, element.description, element.keyword, element.horns);
             jsAlbum.renderAlbum();
         });
+        filtering();
     });
 }
 
-// let clearAndRender = (event) => {
-//     $('.sec').hide();
-//     let selectImages = event.target.id;
-//     $('.secP').hide();
-// };
-
 $('#secP').on('click', showAlbumTwo);
 $('#firstP').on('click', display);
+
+function sortHorns(data) {
+    data.sort((a, b) => {
+        return a.horns - b.horns;
+    });
+    // console.log(data);
+};
+
+
+function sortTitle(data) {
+    data.sort((a, b) => {
+        return (a.title > b.title) ? 1 : -1
+    })
+};
+
+function showHorns() {
+
+    const ajaxSettings = {
+        method: 'get',
+        dataType: 'json'
+    };
+    $('main').empty();
+    var data1;
+    var data2;
+    var allData;
+    $.ajax('../data/page-2.json', ajaxSettings).then(data => {
+        data2 = data;
+        $.ajax('../data/page-1.json', ajaxSettings).then(data => {
+            data1 = data;
+            allData = data1.concat(data2);
+            sortHorns(allData);
+            allData.forEach(element => {
+                let jsAlbum = new Album(element.image_url, element.title, element.description, element.keyword, element.horns);
+                jsAlbum.renderAlbum();
+            });
+            filtering();
+        });
+    });
+    
+
+}
+
+function showTitle() {
+
+    const ajaxSettings = {
+        method: 'get',
+        dataType: 'json'
+    };
+    $('main').empty();
+    var data1;
+    var data2;
+    var allData;
+    $.ajax('../data/page-2.json', ajaxSettings).then(data => {
+        data2 = data;
+        $.ajax('../data/page-1.json', ajaxSettings).then(data => {
+            data1 = data;
+            allData = data1.concat(data2);
+            sortTitle(allData);
+            allData.forEach(element => {
+                let jsAlbum = new Album(element.image_url, element.title, element.description, element.keyword, element.horns);
+                jsAlbum.renderAlbum();
+            });
+            filtering();
+        });
+    });
+    
+
+}
+
+$('#horns').on('click', showHorns);
+$('#title').on('click', showTitle);
